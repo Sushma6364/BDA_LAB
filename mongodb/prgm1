@@ -1,0 +1,34 @@
+use mydb;
+db;
+show dbs;
+db.createCollection('student');
+db.student.insert({id:1,sname:'Shilpa',Grade:'VII',Hobbies:'Netsurfing'});
+
+
+db.student.update({id:4,sname:'Jhanavi',Grade:'VII'},{$set:{Hobbies:'Dancing'}},{upsert:true});
+
+db.student.update({id:3,sname:'Jhon',Grade:'VII'},{$set:{Hobbies:'Dancing'}},{upsert:true});
+
+
+db.student.find({sname:"John"});
+
+
+db.student.find({},{sname:1,Grade:1,_id:0});
+
+db.student.find({Grade:{$eq:'VII'}}).pretty();
+
+db.student.find();
+db.student.find({Hobbies:{$in:['rooming','Singing']}}).pretty();
+
+db.student.find({sname:/^J/}).pretty();
+
+db.student.find({sname:/a/}).pretty();
+
+db.student.count();
+
+db.student.find().sort({sname:-1}).pretty();
+
+
+mongoexport -db mydb1 -collection student -type=csv -fields sname,Grade,Hobbies -out /home/shilpa/Desktop/student.txt
+
+db.student.update({id:3},{$set:{location:null}});
